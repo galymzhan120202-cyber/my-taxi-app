@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <script src="https://telegram.org/js/telegram-web-app.js"></script>
+    <style>
+        body { font-family: sans-serif; padding: 20px; background-color: var(--tg-theme-bg-color); color: var(--tg-theme-text-color); }
+        .btn { display: block; width: 100%; padding: 10px; margin: 10px 0; background: #248b65; color: white; border: none; border-radius: 8px; }
+        input, select { width: 100%; padding: 10px; margin: 5px 0; border-radius: 5px; border: 1px solid #ccc; }
+    </style>
+</head>
+<body>
+    <div id="registration-form">
+        <h2>🚕 Жүргізуші ретінде тіркелу</h2>
+        <input type="text" id="car_info" placeholder="Көлік маркасы мен нөмірі">
+        <select id="max_seats">
+            <option value="4">4 орындық</option>
+            <option value="7">7 орындық</option>
+        </select>
+        <button class="btn" onclick="sendData()">Тіркелуді аяқтау</button>
+    </div>
+
+    <script>
+        let tg = window.Telegram.WebApp;
+        tg.expand(); // Мини-аппты толық экранға жаю
+
+        function sendData() {
+            let data = {
+                car_info: document.getElementById('car_info').value,
+                max_seats: document.getElementById('max_seats').value,
+                action: 'driver_reg'
+            };
+            tg.sendData(JSON.stringify(data)); // Деректі ботқа жіберу
+            tg.close();
+        }
+    </script>
+</body>
+</html>
